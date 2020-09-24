@@ -40,6 +40,7 @@ pub fn hello() -> &'static str {
 }
 
 /// A fn that will simply Err
+#[cfg_attr(feature = "traced-error", instrument)]
 pub fn will_err() -> Result<()> {
     err!(Error::Unknown)
 }
