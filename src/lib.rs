@@ -1,4 +1,4 @@
-#![allow(unused_imports)]
+#![deny(warnings, missing_debug_implementations, rust_2018_idioms)]
 
 use color_eyre::eyre::{self, WrapErr};
 use tracing::{event, info, instrument, span, warn, Level};
