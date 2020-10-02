@@ -17,19 +17,6 @@ type Result<T, E = TracedError<Error>> = color_eyre::Result<T, E>;
 #[cfg(not(feature = "traced-error"))]
 type Result<T, E = Error> = color_eyre::Result<T, E>;
 
-#[cfg(feature = "traced-error")]
-macro_rules! err {
-    ($e:expr) => {
-        Err($e).in_current_span()
-    };
-}
-#[cfg(not(feature = "traced-error"))]
-macro_rules! err {
-    ($e:expr) => {
-        Err($e)
-    };
-}
-
 /// The string literal `"hello, world!"`
 /// ```
 /// use {{crate_name}}::hello;
@@ -42,7 +29,7 @@ pub fn hello() -> &'static str {
 /// A fn that will simply Err
 #[cfg_attr(feature = "traced-error", instrument)]
 pub fn will_err() -> Result<()> {
-    err!(Error::Unknown)
+    Err(Error::Unknown).map_err(Into::into)
 }
 
 #[cfg(test)]

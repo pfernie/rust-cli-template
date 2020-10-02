@@ -9,7 +9,7 @@ use {{crate_name}}::*;
 
 #[instrument]
 fn main() -> eyre::Result<()> {
-    let args = Opt::from_args();
+    let args = Args::from_args();
     install_tracing(&args.tracing_filter);
     color_eyre::install()?;
 
@@ -45,7 +45,7 @@ fn install_tracing(filter_directives: &str) {
 }
 
 #[derive(Debug, StructOpt)]
-struct Opt {
+struct Args {
     /// Tracing filter.
     ///
     /// Can be any of "error", "warn", "info", "debug", or
